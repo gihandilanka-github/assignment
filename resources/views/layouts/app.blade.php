@@ -12,7 +12,8 @@
 
     <!-- Styles -->
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
-    {{--<link href="{{asset('css/app.css')}}" rel="stylesheet">--}}
+    <link href="{{asset('css/weather-icons.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/font-awesome.css')}}" rel="stylesheet">
     <link href="{{asset('css/main.css')}}" rel="stylesheet">
 
     <!-- Scripts -->

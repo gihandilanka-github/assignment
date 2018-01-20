@@ -4,6 +4,7 @@ namespace App\Modules\Weather\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Gmopx\LaravelOWM\LaravelOWM;
+use Illuminate\Http\Request;
 
 class WeatherController extends Controller
 {
@@ -16,17 +17,17 @@ class WeatherController extends Controller
      * Showing weather
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
+        $data['city'] = 'Colombo';
+
+        if(!empty($request->location)){
+            $data['city'] = $request->location;
+        }
+
         $lowm = new LaravelOWM();
-//        $date = new \DateTime();
-//        $date->add(\DateInterval::createFromDateString('yesterday'));
-//        $history = $lowm->getWeatherHistory('london', $date);
-//        dd($history);
-//        $currentWeather = $lowm->getCurrentWeather('london', 'en', 'celsius');
-        $weatherForcast = $lowm->getWeatherForecast('colombo','en', 'metric','4', false, 1200);
-//dd($weatherForcast);
-//        $next4DaysForcast = array_chunk($weatherForcast->);
+        $weatherForcast = $lowm->getWeatherForecast($data['city'],'en', 'metric','3');
+
         $data['weatherForcast'] = $weatherForcast;
         $data['meta_title'] = 'Weather';
 

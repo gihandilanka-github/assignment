@@ -1,77 +1,117 @@
-@php
-$x =0;
-foreach ($weatherForcast as $key => $weather) {
-$x = $x+1;
-$timeFromTo = "from " . $weather->time->from->format('H:i') . " to " . $weather->time->to->format('H:i');
-
-if($timeFromTo == 'from 12:00 to 15:00') {
-    echo "Weather forecast at " . $weather->time->day->format('d.m.Y') . " from " . $weather->time->from->format('H:i') . " to " . $weather->time->to->format('H:i') . "<br />";
-    echo $weather->temperature . "<br />\n";
-    echo "<br />\n";
-    echo "Sun rise: " . $weather->sun->rise->format('d.m.Y H:i');
-    echo "<br />\n";
-    echo "---<br />\n";
-}
-
-}
-dd($x);
-@endphp
-
 @extends('layouts.app')
 @section('content')
+
+    <form id="togglingForm" method="get" class="form-inline">
+        <div class="form-group">
+            <div class="col-lg-6">
+                <input id="location"  class="form-control" maxlength="100" name="location" placeholder="" type="text" value="{{ucfirst($city)}}"> <br />
+            </div>
+
+            <div class="col-lg-2">
+                <button type="submit" class="btn btn-outline-success" name="search">Search</button>
+            </div>
+            <div class="col-lg-2">
+                <a href="{{url('weather')}}"><button type="button" class="btn btn-outline-dark" name="clear">Clear</button></a>
+            </div>
+        </div>
+    </form>
+
+    <div class="row col-lg-12 text-center">
+        <div class="page-header">
+            <h3 class="title"><i class="fa fa-map-marker"></i> {{ucfirst($city)}}</h3>
+
+        </div>
+    </div>
     <div class="row">
 
-        <div class="col-lg-3 col-md-6 mb-4">
-            <div class="card">
-                <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Card title</h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Find Out More!</a>
+        @foreach($weatherForcast as $key => $weather)
+{{--            @php dd($weather);@endphp--}}
+            @php $timeFromTo = "from " . $weather->time->from->format('H:i') . " to " . $weather->time->to->format('H:i'); @endphp
+
+            @if($timeFromTo == 'from 12:00 to 15:00')
+                <div class="col-lg-4 col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">{{$weather->time->from->format('l')}}</h4>
+                        <small>{{$weather->time->from->format('jS F Y')}}</small>
+
+                    </div>
+                    <div class="card-body">
+                        <h4>{{$weather->weather->description}}</h4>
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <p class="card-text"><i class="wi wi-thermometer" aria-hidden="true"></i> Temperature</p>
+                                    </td>
+                                    <td>
+                                        {{$weather->temperature}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="card-text"><i class="wi wi-humidity" aria-hidden="true"></i> Humidity</p>
+                                    </td>
+                                    <td>
+                                        {{$weather->humidity->getFormatted()}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="card-text"><i class="wi wi-barometer" aria-hidden="true"></i> Pressure</p>
+                                    </td>
+                                    <td>
+                                        {{$weather->pressure->getFormatted()}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="card-text"><i class="wi wi-strong-wind" aria-hidden="true"></i> Wind</p>
+                                    </td>
+                                    <td>
+                                        {{$weather->wind->speed}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="card-text"><i class="wi wi-cloudy" aria-hidden="true"></i> Clouds</p>
+                                    </td>
+                                    <td>
+                                        {{$weather->clouds->getFormatted()}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                        
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 mb-4">
-            <div class="card">
-                <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Card title</h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Find Out More!</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 mb-4">
-            <div class="card">
-                <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Card title</h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Find Out More!</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 mb-4">
-            <div class="card">
-                <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">Card title</h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Find Out More!</a>
-                </div>
-            </div>
-        </div>
-
+            @endif
+        @endforeach
     </div>
 @endsection
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAP_KEY')}}&callback=initMap&libraries=places">
+</script>
+<script>
+    var inputCity;
+    var cityName;
+    var optionsCity;
+    var autocompleteCity;
+
+    function initMap() {
+        optionsCity = {
+            types: ['(cities)']
+        };
+        inputCity = document.getElementById('location');//
+        autocompleteCity = new google.maps.places.Autocomplete(inputCity , optionsCity);
+        autocompleteCity.addListener('place_changed', function() {
+            var place = autocompleteCity.getPlace();
+            $('#location').val(place.address_components[0].long_name);
+            cityName = place.address_components[0].long_name;
+        });
+    }
+
+</script>
