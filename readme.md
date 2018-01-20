@@ -12,6 +12,6 @@ By using this application you can find next three day's weather forcast.
 
 
 This is the demo 
-[test.gihandilanka.com]('http://test.gihandilanka.com')
+**[test.gihandilanka.com]('http://test.gihandilanka.com')**
    
 
