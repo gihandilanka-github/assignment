@@ -12,6 +12,10 @@ class HomeController extends Controller
 
     }
 
+    /**
+     * home page
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $data['meta_title'] = 'Home';
