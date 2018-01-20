@@ -92,7 +92,7 @@
         @endforeach
     </div>
 @endsection
-<script async defer
+<script async 
         src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAP_KEY')}}&callback=initMap&libraries=places">
 </script>
 {{--<script type="text/javascript" src="{{asset('js/location-autocomplete.js')}}"--}}
