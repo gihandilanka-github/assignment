@@ -9,19 +9,31 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="Feature">
-            <directory suffix="Test.php">./tests/Feature</directory>
+        <testsuite name="HomeTestSuit">
+            <directory suffix="Test.php">./tests/Unit/Home</directory>
         </testsuite>
-
-        <testsuite name="Unit">
-            <directory suffix="Test.php">./tests/Unit</directory>
+    </testsuites>
+    <testsuites>
+        <testsuite name="WeatherTestSuit">
+            <directory suffix="Test.php">./tests/Unit/Weather</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./app</directory>
+            <exclude>
+                <directory suffix=".php">./app/Modules/Home/Resources</directory>
+                <directory suffix=".php">./app/Modules/Home/Routes</directory>
+                <directory suffix=".php">./app/Modules/Weather/Resources</directory>
+                <directory suffix=".php">./app/Modules/Weather/Routes</directory>
+            </exclude>
         </whitelist>
     </filter>
+    <logging>
+        <log type="coverage-html" target="./mainreport" charset="UTF-8"
+             yui="true" highlight="true"
+             lowUpperBound="50" highLowerBound="80" />
+    </logging>
     <php>
         <env name="APP_ENV" value="testing"/>
         <env name="CACHE_DRIVER" value="array"/>
