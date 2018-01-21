@@ -25,7 +25,6 @@
     <div class="row">
 
         @foreach($weatherForcast as $key => $weather)
-{{--            @php dd($weather);@endphp--}}
             @php $timeFromTo = "from " . $weather->time->from->format('H:i') . " to " . $weather->time->to->format('H:i'); @endphp
 
             @if($timeFromTo == 'from 12:00 to 15:00')
@@ -95,9 +94,7 @@
 <script async
         src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAP_KEY')}}&callback=initMap&libraries=places">
 </script>
-{{--<script type="text/javascript" src="{{asset('js/location-autocomplete.js')}}"--}}
 <script>
-//    (function() {
         var inputCity;
         var cityName;
         var optionsCity;
@@ -115,10 +112,4 @@
                 cityName = place.address_components[0].long_name;
             });
         }
-
-//    })();
-
-
-
-
 </script>
